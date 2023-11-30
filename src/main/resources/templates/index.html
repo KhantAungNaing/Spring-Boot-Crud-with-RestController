@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot CRUD App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="mt-4 mb-4">Person Management</h2>
+
+        <div id="message" class="alert alert-info"></div>
+
+        <div class="form-group">
+            <label for="personId">Person ID:</label>
+            <input type="text" class="form-control" id="personId">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control" id="age">
+        </div>
+
+        <button class="btn btn-primary" onclick="getPerson()">Get Person</button>
+        <button class="btn btn-success" onclick="addPerson()">Add Person</button>
+        <button class="btn btn-warning" onclick="updatePerson()">Update Person</button>
+        <button class="btn btn-danger" onclick="deletePerson()">Delete Person</button>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function displayMessage(message, type = 'info') {
+            var messageDiv = document.getElementById("message");
+            messageDiv.innerHTML = message;
+            messageDiv.className = "alert alert-" + type;
+        }
+
+        function getPerson() {
+            var personId = document.getElementById("personId").value;
+            fetch("/getP/" + personId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    displayMessage(JSON.stringify(data));
+                });
+        }
+
+        function addPerson() {
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+
+            var person = {
+                name: name,
+                age: age
+            };
+
+            fetch("/add", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(person)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                displayMessage("Person added successfully", 'success');
+            });
+        }
+
+        function updatePerson() {
+            var personId = document.getElementById("personId").value;
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+
+            var person = {
+                name: name,
+                age: age
+            };
+
+            fetch("/update/" + personId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(person)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                displayMessage("Person updated successfully", 'warning');
+            });
+        }
+
+        function deletePerson() {
+            var personId = document.getElementById("personId").value;
+
+            fetch("/delete/" + personId, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                displayMessage("Person deleted successfully", 'danger');
+            });
+        }
+    </script>
+
+</body>
+</html>
