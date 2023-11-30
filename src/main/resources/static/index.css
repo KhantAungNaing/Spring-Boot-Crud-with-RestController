@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            color: #333;
+        }

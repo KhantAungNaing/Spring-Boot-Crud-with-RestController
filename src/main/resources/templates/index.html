@@ -6,41 +6,11 @@
     <title>Spring Boot CRUD App</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        label {
-            margin-bottom: 0.5rem;
-        }
-
-        input {
-            width: 100%;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-        }
-
-        button {
-            padding: 0.5rem;
-            margin-right: 1rem;
-            cursor: pointer;
-        }
-
-        #message {
-            margin-top: 1rem;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            background-color: #f8f8f8;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="/index.css">
 </head>
+
+<script src="/index.js"></script>
+
 <body>
 
     <div class="container">
@@ -74,83 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        function displayMessage(message, type = 'info') {
-            var messageDiv = document.getElementById("message");
-            messageDiv.innerHTML = message;
-            messageDiv.className = "alert alert-" + type;
-        }
-
-        function getPerson() {
-            var personId = document.getElementById("personId").value;
-            fetch("/getP/" + personId)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    displayMessage(JSON.stringify(data));
-                });
-        }
-
-        function addPerson() {
-            var name = document.getElementById("name").value;
-            var age = document.getElementById("age").value;
-
-            var person = {
-                name: name,
-                age: age
-            };
-
-            fetch("/add", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(person)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                displayMessage("Person added successfully", 'success');
-            });
-        }
-
-        function updatePerson() {
-            var personId = document.getElementById("personId").value;
-            var name = document.getElementById("name").value;
-            var age = document.getElementById("age").value;
-
-            var person = {
-                name: name,
-                age: age
-            };
-
-            fetch("/update/" + personId, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(person)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                displayMessage("Person updated successfully", 'warning');
-            });
-        }
-
-        function deletePerson() {
-            var personId = document.getElementById("personId").value;
-
-            fetch("/delete/" + personId, {
-                method: 'DELETE',
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                displayMessage("Person deleted successfully", 'danger');
-            });
-        }
-    </script>
+    
 
 </body>
 </html>
